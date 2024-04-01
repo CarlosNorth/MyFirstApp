@@ -29,10 +29,10 @@ const Home = () => {
       <TouchableOpacity
         style={styles.goButton}
         onPress={() => {
-          console.log("Вычесляю");
+          console.log("GO");
         }}
       >
-        <Text style={styles.goButtonText}>Погнали</Text>
+        <Text style={styles.goButtonText}>GO</Text>
       </TouchableOpacity>
 
       <Text style={styles.BMIText}>0.00</Text>
