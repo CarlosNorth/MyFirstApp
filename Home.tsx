@@ -5,43 +5,66 @@ import {
   TouchableOpacity,
   View,
   Image,
-} from "react-native";
+ } from "react-native";
 import React from "react";
-import image from "./assets/red.png"; // png module
+// import { Image } from 'expo-image';
+// const logoImg =  require("./assets/red.png");
 
-
-const logo =  require("./assets/red.png");
 const Home = () => {
   return (
-    <View style={styles.container}>
+      <View style={styles.container}>
+      {/* <View style = {styles.line}/> */}
       <Text style={styles.titleText}>BMI Calculator</Text>
       <View style={styles.inputContainer}>
-      
-        <TextInput
+       
+            <TextInput
           style={styles.input}
           placeholder="Heigth-M"
-          placeholderTextColor={"rgba(90,90,190,1)"}
+          placeholderTextColor={"rgba(135,135,135,1)"} //9090901
           keyboardType="number-pad"
         />
         <TextInput
           style={styles.input}
           placeholder="Weigth-KG"
-          placeholderTextColor={"rgba(90,90,190,1)"}
+          placeholderTextColor={"rgba(135,135,135,1)"}
           keyboardType="number-pad"
         />
+        {/* <View style = {styles.line}/> */}
         </View>
+        <View style = {styles.line}/>
         
 
+        
         <View style={styles.ColorContainer}>
           <View style={styles.Yellow}>
+          <Image
+              style={styles.imageYellow} 
+              source={require('./assets/yellow.png')}
+                          
+                             
+              
+              />
           <Text style={styles.YellowText1}>Under 18</Text>
           <Text style={styles.YellowText2}>Under Weigth</Text>
           </View>
           <View style={styles.Green}>
+          <Image
+              style={styles.imageGreen} 
+              source={require('./assets/green.png')}
+               
+                            
+              />   
           <Text style={styles.GreenText1}>18.5 - 25</Text>
           <Text style={styles.GreenText2}>Normal Weigth</Text>
           </View>
           <View style={styles.Red}>
+          <Image
+              style={styles.imageRed} 
+              source={require('./assets/red.png')}
+                       
+                              
+              
+              />  
           <Text style={styles.RedText1}>Above 25</Text>
           <Text style={styles.RedText2}>Over Weigth</Text>
           </View>
@@ -81,25 +104,27 @@ const styles = StyleSheet.create({
   },
 
   inputContainer: { flexDirection: "row", gap: 50, marginTop: 50, position: "absolute",
-  top: 100 },
+  top: 100},
   //"row" - ось направлена слева направо. Элементы расположены в ряд,
   // по умолчанию прижаты к левому краю, их нумерация имеет обычный порядок - слева направо.
   
   input: {
     borderWidth: 1,
-    borderRadius: 5,
-    height: 50,
+    borderRadius: 3,
+    height: 60,
     width: 130,
-    padding: 10, // отступ со всех сторон
+    // padding: 15, // отступ со всех сторон
+    paddingHorizontal: 30, // оступ по горизонтали
+    paddingVertical: 7, // оступ по вертикали
     color: "white",
   },
 
   goButton: {
     backgroundColor: "#fff",
-    paddingHorizontal: 30, // оступ по горизонтали
+    paddingHorizontal: 35, // оступ по горизонтали
     paddingVertical: 7, // оступ по вертикали
 
-    borderRadius: 10, // скругление углов
+    borderRadius: 2, // скругление углов
 
     marginTop: 30,
     position: "absolute",
@@ -118,6 +143,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     position: "absolute",
     top: 320,
+    paddingLeft: 0 ,
   },
 
  
@@ -162,8 +188,9 @@ const styles = StyleSheet.create({
   
   ColorContainer:{
     flexDirection:"row",
-    top: 220,
-    gap:15
+    top: 30,
+    gap:25,
+    
   },
 
   Yellow:{
@@ -189,6 +216,33 @@ const styles = StyleSheet.create({
     
   },
 
+  imageYellow:{
+    position: "absolute",
+    top: 30,
+            
+  },
+
+  imageGreen:{
+    position: "absolute",
+    top: 20,
+            
+  },
+
+  imageRed:{
+    position: "absolute",
+    top: 20,
+                    
+  },
+
+  line:{
+    width:"100%",
+    backgroundColor: "rgba(255, 255, 255, 1)",
+    height: 2,
+    marginTop: 350,
+    
+    
+    
+  },
 
   });
 
