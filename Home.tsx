@@ -6,37 +6,61 @@ import {
   View,
   Image,
  } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 // import { Image } from 'expo-image';
 // const logoImg =  require("./assets/red.png");
 
 const Home = () => {
-  return (
+    const [height, setHeight] = useState(""); 
+    const [weight, setWeight] = useState("");
+
+    const [BMI, setBMI] = useState(0.00);
+
+    React.useEffect(() => {
+      setHeight("");
+    }, []);
+
+    const handlerCalcBMI =() => {
+      const currentWeight = parseInt(weight);
+      const currentHeight = parseInt(height);
+      if (isNaN(currentWeight) || isNaN(currentHeight)) {
+        return;
+      }
+      const heightMetrs = currentHeight / 100;  
+      setBMI(Number((currentWeight / (heightMetrs * heightMetrs)).toFixed(1)))
+    };
+    return (
       <View style={styles.container}>
-      {/* <View style = {styles.line}/> */}
-      <Text style={styles.titleText}>BMI Calculator</Text>
-      <View style={styles.inputContainer}>
-       
-            <TextInput
+        <Text style={styles.titleText}>BMI Calculator</Text>
+        <View style={styles.inputContainer}>
+         <TextInput
+            value={height}
+            onChangeText={(value) => {
+              setHeight(value);
+          }}
+
           style={styles.input}
-          placeholder="Heigth-M"
+          placeholder="Heigth-CM"
           placeholderTextColor={"rgba(135,135,135,1)"} //9090901
           keyboardType="number-pad"
         />
         <TextInput
+            value={weight}
+
+             onChangeText={(value) => {
+              setWeight(value);
+          }}
           style={styles.input}
           placeholder="Weigth-KG"
           placeholderTextColor={"rgba(135,135,135,1)"}
           keyboardType="number-pad"
         />
-        {/* <View style = {styles.line}/> */}
+        
         </View>
         <View style = {styles.line}/>
-        
-
-        
+             
         <View style={styles.ColorContainer}>
-          <View style={styles.Yellow}>
+          <View style={[styles.Yellow, BMI <= 18.5 && BMI >= 1 && {opacity:1}]}>
           <Image
               style={styles.imageYellow} 
               source={require('./assets/yellow.png')}
@@ -47,7 +71,7 @@ const Home = () => {
           <Text style={styles.YellowText1}>Under 18</Text>
           <Text style={styles.YellowText2}>Under Weigth</Text>
           </View>
-          <View style={styles.Green}>
+          <View style={[styles.Green,  BMI > 18.5 && BMI <= 25 && {opacity:1}]}>
           <Image
               style={styles.imageGreen} 
               source={require('./assets/green.png')}
@@ -57,7 +81,7 @@ const Home = () => {
           <Text style={styles.GreenText1}>18.5 - 25</Text>
           <Text style={styles.GreenText2}>Normal Weigth</Text>
           </View>
-          <View style={styles.Red}>
+          <View style={[styles.Red, BMI > 25 && {opacity:1}]}>
           <Image
               style={styles.imageRed} 
               source={require('./assets/red.png')}
@@ -74,13 +98,13 @@ const Home = () => {
       <TouchableOpacity
         style={styles.goButton}
         onPress={() => {
-          console.log("GO");
+          handlerCalcBMI();
         }}
       >
         <Text style={styles.goButtonText}>GO</Text>
       </TouchableOpacity>
 
-      <Text style={styles.BMIText}>0.00</Text>
+      <Text style={styles.BMIText}>{BMI}</Text>
     
     </View>
 
@@ -198,14 +222,15 @@ const styles = StyleSheet.create({
     height:250,
     borderRadius: 10,
     backgroundColor:"rgba(254, 234, 60, 1)",
-      },
+    opacity:0.3,
+  },
 
   Green:{
     width:100,
     height:250,
     borderRadius: 10,
     backgroundColor:"rgba(78, 174, 80, 1)",
-    
+    opacity:0.3,
   },
   
   Red:{
@@ -213,6 +238,7 @@ const styles = StyleSheet.create({
     height:250,
     borderRadius: 10,
     backgroundColor:"rgba(254, 83, 83, 1)",
+    opacity:0.3,
     
   },
 
