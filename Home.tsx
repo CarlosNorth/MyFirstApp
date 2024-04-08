@@ -15,6 +15,8 @@ const Home = () => {
     const [weight, setWeight] = useState("");
 
     const [BMI, setBMI] = useState(0.00);
+    const re = /^\d+$/;
+        
 
     React.useEffect(() => {
       setHeight("");
@@ -36,24 +38,27 @@ const Home = () => {
          <TextInput
             value={height}
             onChangeText={(value) => {
+              if (!  re.exec(value)) value = ""
               setHeight(value);
           }}
 
           style={styles.input}
           placeholder="Heigth-CM"
-          placeholderTextColor={"rgba(135,135,135,1)"} //9090901
+          placeholderTextColor={"rgba(135,135,135,1)"} 
           keyboardType="number-pad"
+          
         />
         <TextInput
             value={weight}
-
-             onChangeText={(value) => {
+            onChangeText={(value) => {
+              if (!  re.exec(value)) value = ""
               setWeight(value);
           }}
           style={styles.input}
           placeholder="Weigth-KG"
           placeholderTextColor={"rgba(135,135,135,1)"}
           keyboardType="number-pad"
+          
         />
         
         </View>
@@ -95,11 +100,18 @@ const Home = () => {
         </View>
 
 
-      <TouchableOpacity
-        style={styles.goButton}
+      <TouchableOpacity disabled
+        style={[styles.goButton, ]}
         onPress={() => {
           handlerCalcBMI();
         }}
+
+        // value={weight}
+        // onChangeText={(value) => {
+        //   if (!  re.exec(value)) value = ""
+        //   setWeight(value);
+        
+        
       >
         <Text style={styles.goButtonText}>GO</Text>
       </TouchableOpacity>
@@ -107,7 +119,7 @@ const Home = () => {
       <Text style={styles.BMIText}>{BMI}</Text>
     
     </View>
-
+      
     
   );
 
@@ -133,9 +145,7 @@ const styles = StyleSheet.create({
   // по умолчанию прижаты к левому краю, их нумерация имеет обычный порядок - слева направо.
   
   input: {
-    borderWidth: 1,
-    borderRadius: 3,
-    height: 60,
+    borderWidth: 1, borderRadius: 3, height: 60,
     width: 130,
     // padding: 15, // отступ со всех сторон
     paddingHorizontal: 30, // оступ по горизонтали
@@ -153,6 +163,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
     position: "absolute",
     top: 250,
+    opacity: 0.3,
+   
+
   },
 
   goButtonText: {
